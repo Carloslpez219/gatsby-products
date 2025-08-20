@@ -1,7 +1,7 @@
 export function formatPrice(value) {
-  const n = Number(value || 0);
+  if (!value && value !== 0) return "";
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
-  }).format(n);
+  }).format(value);
 }

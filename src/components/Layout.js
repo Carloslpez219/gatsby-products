@@ -1,27 +1,12 @@
-import React from "react";
-import { Link } from "gatsby";
+import * as React from "react";
 
 export default function Layout({ children }) {
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="text-xl font-bold">Gatsby Products</Link>
-          <nav className="text-sm">
-            <Link to="/" className="hover:underline">Home</Link>
-          </nav>
-        </div>
+    <div className="min-h-screen bg-gray-100">
+      <header className="bg-indigo-600 text-white p-4">
+        <h1 className="text-2xl font-bold">Fake Products Store</h1>
       </header>
-
-      <main className="flex-1">
-        <div className="mx-auto max-w-6xl px-4 py-6">{children}</div>
-      </main>
-
-      <footer className="border-t">
-        <div className="mx-auto max-w-6xl px-4 py-4 text-sm text-gray-500">
-          © {new Date().getFullYear()} — Demo
-        </div>
-      </footer>
+      <main className="p-6 max-w-5xl mx-auto">{children}</main>
     </div>
   );
 }

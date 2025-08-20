@@ -1,37 +1,55 @@
 import * as React from "react";
-import { StaticImage } from "gatsby-plugin-image";
+import { graphql } from "gatsby";
+import Layout from "../components/Layout";
+import { formatPrice } from "../utils/format";
 
-export default function IndexPage() {
+export const query = graphql`
+  {
+    allFakeProduct {
+      nodes {
+        id
+        title
+        price
+        description
+        category
+        image
+      }
+    }
+  }
+`;
+
+export default function IndexPage({ data }) {
+  const products = data.allFakeProduct.nodes;
+
   return (
-    <main className="min-h-screen">
-      <header className="border-b">
-        <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Gatsby Products</h1>
-          <span className="text-sm text-gray-600">Smoke test</span>
-        </div>
-      </header>
-
-      <section className="mx-auto max-w-6xl px-4 py-8">
-        <h2 className="text-xl font-semibold mb-4">Sample grid</h2>
-        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          <article className="rounded-lg border overflow-hidden">
-            <div className="aspect-[4/3] bg-gray-50 flex items-center justify-center">
-              <StaticImage
-                src="../images/icon.png"
-                alt="placeholder"
-                placeholder="blurred"
-                width={600}
-              />
+    <Layout>
+      <h2 className="text-3xl font-bold mb-6">Products</h2>
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        {products.map((p) => (
+          <div
+            key={p.id}
+            className="bg-white shadow rounded-lg overflow-hidden flex flex-col"
+          >
+            <img
+              src={p.image}
+              alt={p.title}
+              className="h-48 w-full object-contain bg-gray-50"
+            />
+            <div className="p-4 flex flex-col flex-1">
+              <h3 className="text-lg font-semibold">{p.title}</h3>
+              <p className="text-indigo-600 font-bold mt-2">
+                {formatPrice(p.price)}
+              </p>
+              <p className="text-sm text-gray-600 mt-2 line-clamp-3">
+                {p.description}
+              </p>
+              <span className="text-xs text-gray-500 mt-auto">
+                Category: {p.category}
+              </span>
             </div>
-            <div className="p-4">
-              <h3 className="font-semibold line-clamp-1">Sample product</h3>
-              <p className="mt-1 text-gray-700 font-medium">$19.99</p>
-            </div>
-          </article>
-        </div>
-      </section>
-    </main>
+          </div>
+        ))}
+      </div>
+    </Layout>
   );
 }
-
-export const Head = () => <title>Home</title>;
