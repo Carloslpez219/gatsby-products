@@ -1,22 +1,29 @@
-/**
- * @type {import('gatsby').GatsbyConfig}
- */
+require("dotenv").config(); 
+
 module.exports = {
-  siteMetadata: {
-    title: `gatsby-products`,
-    siteUrl: `https://www.yourdomain.tld`
-  },
-  plugins: ["gatsby-plugin-postcss", "gatsby-plugin-image", "gatsby-plugin-sitemap", {
-    resolve: 'gatsby-plugin-manifest',
-    options: {
-      "icon": "src/images/icon.png"
-    }
-  }, "gatsby-plugin-sharp", "gatsby-transformer-sharp", {
-    resolve: 'gatsby-source-filesystem',
-    options: {
-      "name": "images",
-      "path": "./src/images/"
+  plugins: [
+    `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+    {
+      resolve: "gatsby-source-apiserver",
+      options: {
+        typePrefix: "internal__", 
+        url: `https://fakestoreapi.com/products`, 
+        method: "get",
+        name: "products", 
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
     },
-    __key: "images"
-  }]
+    {
+      resolve: "gatsby-plugin-remote-images",
+      options: {
+        nodeType: "internal__products", 
+        imagePath: "image", 
+        name: "localImage", 
+      },
+    },
+  ],
 };
