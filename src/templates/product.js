@@ -40,6 +40,14 @@ export default function ProductTemplate({ data }) {
           <p className="mt-4 text-sm text-gray-500 capitalize">
             Category: {p.category}
           </p>
+            <div className="mt-6 border-t pt-4">
+                <h2 className="text-lg font-semibold mb-2">Specifications</h2>
+                <ul className="list-disc list-inside text-gray-600 text-sm space-y-1">
+                    <li>High quality material</li>
+                    <li>1-year warranty</li>
+                    <li>Ships worldwide</li>
+                </ul>
+            </div>
           <div className="mt-6">
             <Link
               to="/"
