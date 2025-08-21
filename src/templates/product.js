@@ -1,5 +1,5 @@
 import * as React from "react";
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import Layout from "../components/Layout";
 import { formatPrice } from "../utils/format";
 
@@ -40,6 +40,14 @@ export default function ProductTemplate({ data }) {
           <p className="mt-4 text-sm text-gray-500 capitalize">
             Category: {p.category}
           </p>
+          <div className="mt-6">
+            <Link
+              to="/"
+              className="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
+            >
+              ← Back
+            </Link>
+          </div>
         </div>
       </article>
     </Layout>
