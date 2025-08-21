@@ -1,5 +1,5 @@
 import * as React from "react";
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import Layout from "../components/Layout";
 import { formatPrice } from "../utils/format";
 
@@ -8,6 +8,7 @@ export const query = graphql`
     allFakeProduct {
       nodes {
         id
+        id_original
         title
         price
         description
@@ -26,9 +27,10 @@ export default function IndexPage({ data }) {
       <h2 className="text-3xl font-bold mb-6">Products</h2>
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {products.map((p) => (
-          <div
+          <Link
+            to={`/products/${p.id_original}`}
             key={p.id}
-            className="bg-white shadow rounded-lg overflow-hidden flex flex-col"
+            className="bg-white shadow rounded-lg overflow-hidden flex flex-col hover:shadow-lg transition"
           >
             <img
               src={p.image}
@@ -47,7 +49,7 @@ export default function IndexPage({ data }) {
                 Category: {p.category}
               </span>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </Layout>
